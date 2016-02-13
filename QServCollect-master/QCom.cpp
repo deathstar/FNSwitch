@@ -188,7 +188,7 @@ namespace server {
                         
                         if(cn!=CMD_SENDER && cn >= 0 && cn <= 1000 && ci != NULL && ci->connected && args[1] != NULL && cn!=CMD_SENDER) {
             				clientinfo *ci = qs.getClient(cn);
-            				disconnect_client(ci->clientnum, DISC_IPBAN);
+            				//disconnect_client(ci->clientnum, DISC_IPBAN);
             				server::addgban(-1, ci->ip);
            					 out(ECHO_SERV, "\f0%s \f4has been added to the permanent banlist.", colorname(ci));
             				out(ECHO_NOCOLOR, "%s has been added to the permanent banlist.", colorname(ci));
@@ -227,7 +227,7 @@ namespace server {
                 mapsucksvotes--;
                 mapsucksvotes--;
                 mapsucksvotes--;
-                //int mapsucksvotes = 0;
+                int mapsucksvotes = 0;
             }
         }
         else if(ci->votedmapsucks) sendf(ci->clientnum, 1, "ris", N_SERVMSG, "\f3Error: You have already voted");
@@ -911,31 +911,34 @@ namespace server {
         }
     }
     
-        QSERV_CALLBACK pm_cmd(p) {
-		int cn = -1;
+    QSERV_CALLBACK pm_cmd(p) {
+        int cn = -1;
         if(CMD_SA) {
-			cn = atoi(args[1]);
+            cn = atoi(args[1]);
             if(cn >= 0 && cn <= 1000) {
-				clientinfo *ci = qs.getClient(cn);
-				clientinfo *self = qs.getClient(CMD_SENDER);
-				
-					if(ci->connected) {
-					if(cn!=CMD_SENDER && cn >= 0 && cn <= 1000 && ci != NULL && ci->connected && strlen(fulltext) > 0) {
-            			const char *privatemessage = fulltext;
-                		defformatstring(recieverpmmsg)("\f4Private message from \f0%s\f4: \f3%s", colorname(self), privatemessage);
-                		sendf(cn, 1, "ris", N_SERVMSG, recieverpmmsg);
-                		defformatstring(senderpmconf)("\f4Sent \f0%s \f4your message: \f3%s", colorname(ci), privatemessage);
-                		sendf(CMD_SENDER, 1, "ris", N_SERVMSG, senderpmconf);
-					   
-				}
-					}
-			} else {
-				sendf(CMD_SENDER, 1, "ris", N_SERVMSG, "\f3Error: Player not connected");
-        } 	
-		} /*else {
+                clientinfo *ci = qs.getClient(cn);
+                clientinfo *self = qs.getClient(CMD_SENDER);
+                
+                if(ci != NULL) {
+                    if(ci->connected) {
+                        
+                        if(cn!=CMD_SENDER && cn >= 0 && cn <= 1000 && ci != NULL && ci->connected && strlen(fulltext) > 0) {
+                            const char *privatemessage = fulltext;
+                            defformatstring(recieverpmmsg)("\f4[Notice] Private message from \f0%s\f4: \f3%s", colorname(self), privatemessage);
+                            sendf(cn, 1, "ris", N_SERVMSG, recieverpmmsg);
+                            defformatstring(senderpmconf)("\f4Sent \f0%s \f4your message: \f3%s", colorname(ci), privatemessage);
+                            sendf(CMD_SENDER, 1, "ris", N_SERVMSG, senderpmconf);
+                        }
+                        
+                    }
+                }
+            } else {
+                sendf(CMD_SENDER, 1, "ris", N_SERVMSG, "\f3Error: Player not connected");
+            }
+        } else {
+            sendf(CMD_SENDER, 1, "ris", N_SERVMSG, "\f4Private message must be one word");
             sendf(CMD_SENDER, 1, "ris", N_SERVMSG, CMD_DESC(cid));
         }
-        */
     }
     
     QSERV_CALLBACK sendprivs_cmd(p) {
@@ -951,13 +954,13 @@ namespace server {
 					   defformatstring(shareprivsmsg)("\f4Ok, %s\f4. Sharing your privileges with \f0%s\f4. They now have invisible privileges.", colorname(self), colorname(ci));
             		   sendf(CMD_SENDER, 1, "ris", N_SERVMSG, shareprivsmsg);
                        if(self->privilege==PRIV_MASTER) {
-                       defformatstring(sendprivsmsg)("\f4You have received invisible \f0master \f4from \f0%s\f4. Relinquish and reclaim to reveal your privileges.", colorname(self));
+                       defformatstring(sendprivsmsg)("\f4You have received invisible \f0master \f4from \f0%s\f4.", colorname(self));
                        sendf(cn, 1, "ris", N_SERVMSG, sendprivsmsg);
                        ci->privilege=PRIV_MASTER;
                 	   self->privilege=PRIV_MASTER;
             		   }
             		   else if(self->privilege==PRIV_ADMIN) {
-                       defformatstring(sendprivsmsg)("\f4You have received invisible \f6admin \f4from \f6%s\f4. Relinquish and reclaim to reveal your privileges.", colorname(self));
+                       defformatstring(sendprivsmsg)("\f4You have received invisible \f6admin \f4from \f6%s\f4.", colorname(self));
                        sendf(cn, 1, "ris", N_SERVMSG, sendprivsmsg);
                        ci->privilege=PRIV_ADMIN;
                        self->privilege=PRIV_ADMIN;
