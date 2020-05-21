@@ -11,7 +11,7 @@ Setup
 
 all you have to do is give FNSwitch access from System Preferences to be able to function properly. Here are some images to guide you.
 
-1) open “System Preferences,” then select “Security and Privacy”
+1) open “System Preferences,” then select “Security and Privacy," under "General" -> Allow Apps downloaded from: FN Switch, select allow.
 ￼
 2) Select the “Privacy” tab from the top navigation bar, then select the “Accessibility” tab from the left sidebar, then click the lock
 icon to authenticate so you can make changes to the Accessibility settings.
