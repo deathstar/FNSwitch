@@ -10,13 +10,13 @@ all you have to do is give FNSwitch access from System Preferences to be able to
 
 1) Try to open FNSwitch, when it fails, open “System Preferences,” then select “Security and Privacy," under "General" -> Allow Apps downloaded from, and next to FN Switch, select "allow anyway." If you're having trouble or want to read more on this: 
 https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac
-￼
+
 2) Select the “Privacy” tab from the top navigation bar, then select the “Accessibility” tab from the left sidebar, then click the lock icon to authenticate so you can make changes to the Accessibility settings.
-￼
+
 3) Authenticate using an admin username and password
-￼
+
 4) Select the checkbox to the left of “FNSwitch” to give FNSwitch permission to change your modifier key settings, and you’re all done, now you can use FNSwitch to easily switch between modifier key modes. 
-￼
+
 
 # Troubleshooting
 
